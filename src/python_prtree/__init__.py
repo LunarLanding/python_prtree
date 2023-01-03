@@ -83,6 +83,9 @@ class PRTree2D:
         else:
             return out
 
+    @property
+    def bounds(self):
+        return self._tree.bounds()
 
 class PRTree3D(PRTree2D):
     Klass = _PRTree3D

@@ -139,3 +139,25 @@ def test_obj(seed, PRTree, dim, tmp_path):
     idx = prtree.query(q)
     return_obj = prtree2.query(q, return_obj=True)
     assert set(return_obj) == set([obj[i] for i in idx])
+
+@pytest.mark.parametrize("seed", range(N_SEED))
+@pytest.mark.parametrize("PRTree, dim", [(PRTree2D, 2), (PRTree3D, 3), (PRTree4D, 4)])
+def test_bounds(seed, PRTree, dim, tmp_path):
+    np.random.seed(seed)
+    x = np.random.rand(100, 2 * dim)
+
+    for i in range(dim):
+        x[:, i + dim] += x[:, i]
+
+
+    b=x.copy()
+    b=b.reshape((-1,2,dim))
+
+    prtree = PRTree()
+    for i in range(len(x)):
+        prtree.insert(i, x[i])
+
+    bounds_manual=np.concatenate([b[:,0].min(axis=0),b[:,1].max(axis=0)])
+    bounds_tree=np.array(prtree.bounds)
+    print(bounds_tree)
+    assert np.allclose(bounds_manual,bounds_tree),f"{bounds_tree=},{bounds_manual=}"

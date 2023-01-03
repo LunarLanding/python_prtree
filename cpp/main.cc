@@ -59,7 +59,10 @@ PYBIND11_MODULE(PRTree, m)
         )pbdoc")
       .def("size", &PRTree<T, B, 2>::size, R"pbdoc(
           get n
-        )pbdoc");
+        )pbdoc")
+      .def("bounds", &PRTree<T, B, 2>::bounds, R"pbdoc(
+          get bounds
+      )pbdoc");
 
   py::class_<PRTree<T, B, 3>>(m, "_PRTree3D")
       .def(py::init<py::array_t<T>, py::array_t<float>>(), R"pbdoc(
@@ -103,7 +106,10 @@ PYBIND11_MODULE(PRTree, m)
         )pbdoc")
       .def("size", &PRTree<T, B, 3>::size, R"pbdoc(
           get n
-        )pbdoc");
+        )pbdoc")
+      .def("bounds", &PRTree<T, B, 3>::bounds, R"pbdoc(
+          get bounds
+      )pbdoc");
 
   py::class_<PRTree<T, B, 4>>(m, "_PRTree4D")
       .def(py::init<py::array_t<T>, py::array_t<float>>(), R"pbdoc(
@@ -147,7 +153,10 @@ PYBIND11_MODULE(PRTree, m)
         )pbdoc")
       .def("size", &PRTree<T, B, 4>::size, R"pbdoc(
           get n
-        )pbdoc");
+        )pbdoc")
+      .def("bounds", &PRTree<T, B, 4>::bounds, R"pbdoc(
+          get bounds
+      )pbdoc");
 
 #ifdef VERSION_INFO
   m.attr("__version__") = VERSION_INFO;

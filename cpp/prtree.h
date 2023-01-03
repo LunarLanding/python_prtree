@@ -1365,4 +1365,17 @@ public:
   {
     return static_cast<int64_t>(idx2bb.size());
   }
+
+  vec<Real> bounds(){
+    auto count = flat_tree.size();
+    vec<Real>x(2*D, 0.);
+    if (count!=0){
+      PRTreeElement<T, B, D> &node = flat_tree[0];
+      for (int i = 0; i < D; ++i) {
+        x[D+i]=node.mbb.max(i);
+        x[i]=node.mbb.min(i);
+      }
+    }
+    return x;
+  }
 };
